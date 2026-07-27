@@ -1,0 +1,7 @@
+scenario_id,run_id,sample_id,time_s,position_m,speed_mps,ap_id,obm_id,rssi_dbm,serving_ap,is_valid,receiver_status,label
+scenario_demo,run_demo,sample_demo,0.00,-2.0,20.0,AP-001,OBM-front,-42.0,1,1,ok,healthy
+scenario_demo,run_demo,sample_demo,0.05,-1.0,20.0,AP-001,OBM-front,-40.5,1,1,ok,healthy
+scenario_demo,run_demo,sample_demo,0.10,0.0,20.0,AP-001,OBM-front,-39.5,1,1,ok,healthy
+scenario_demo,run_demo,sample_demo,0.15,1.0,20.0,AP-001,OBM-front,-40.8,1,1,ok,healthy
+scenario_demo,run_demo,sample_demo,0.20,2.0,20.0,AP-001,OBM-front,-42.2,1,1,ok,healthy
+

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+*.tmp
+
+# Generated artifacts and local model files
+artifacts/
+outputs/
+models/
+*.joblib
+*.pkl
+*.pt
+*.pth
+
+# Full datasets are published as versioned release assets, not normal Git blobs
+data/raw/
+data/processed/
+data/model_ready/
+*.parquet
+*.npz
+
+# Keep the small auditable example committed
+!data/sample/**
+

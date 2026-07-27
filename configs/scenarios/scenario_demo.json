@@ -1,0 +1,27 @@
+{
+  "scenario_id": "scenario_demo",
+  "description": "Small repository contract example; not a calibrated real railway.",
+  "route_start_m": -400.0,
+  "route_end_m": 150.0,
+  "carrier_frequency_hz": 2400000000.0,
+  "ap_layout": [
+    {
+      "ap_id": "AP-001",
+      "position_m": 0.0,
+      "lateral_offset_m": 5.0,
+      "height_m": 5.0,
+      "antenna_count": 2
+    }
+  ],
+  "obm_layout": [
+    {
+      "obm_id": "OBM-front",
+      "height_m": 4.1
+    }
+  ],
+  "provenance": {
+    "status": "engineering_demo",
+    "warning": "Values are not calibrated measurements from a target line."
+  }
+}
+

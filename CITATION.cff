@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "If you use this dataset or generator, please cite the repository and the associated paper."
+title: "RailAI-RSSI-Dataset"
+type: dataset
+version: 0.1.0-dev
+date-released: 2026-07-27
+authors:
+  - name: "RailAI Project Team"
+abstract: "A reproducible simulated railway RSSI dataset for train-ground communication fault diagnosis."
+keywords:
+  - railway
+  - RSSI
+  - train-ground communication
+  - fault diagnosis
+  - simulation dataset
