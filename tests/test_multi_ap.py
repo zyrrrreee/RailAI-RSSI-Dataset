@@ -43,7 +43,7 @@ class MultiApCandidateTests(unittest.TestCase):
             ].shape,
             (3, sample_count),
         )
-        self.assertEqual(result["ap_ids"], ("AP-1", "AP-2", "AP-3"))
+        self.assertEqual(result["ap_ids"], ("AP-001", "AP-002", "AP-003"))
 
     def test_all_ap_links_share_one_train_clock_and_geometry(self):
         result = generate_multi_ap_dual_obm_candidates(seed=123, **COMMON)
@@ -79,7 +79,7 @@ class MultiApCandidateTests(unittest.TestCase):
             for index, value in enumerate(identifiers)
             if index == 0 or value != identifiers[index - 1]
         ]
-        self.assertEqual(compressed, ["AP-1", "AP-2", "AP-3"])
+        self.assertEqual(compressed, ["AP-001", "AP-002", "AP-003"])
 
     def test_reference_argmax_is_not_exposed_as_serving_or_handover(self):
         result = generate_multi_ap_dual_obm_candidates(seed=123, **COMMON)
@@ -94,7 +94,7 @@ class MultiApCandidateTests(unittest.TestCase):
 
     def test_ap_candidate_retains_dual_antenna_branch_evidence(self):
         result = generate_multi_ap_dual_obm_candidates(seed=123, **COMMON)
-        candidate = result["front_obm"]["candidates_by_ap"]["AP-2"]
+        candidate = result["front_obm"]["candidates_by_ap"]["AP-002"]
         self.assertIn("antenna_1_candidate_raw_rssi_dBm", candidate)
         self.assertIn("antenna_2_candidate_raw_rssi_dBm", candidate)
         self.assertIn("selected_antenna", candidate)

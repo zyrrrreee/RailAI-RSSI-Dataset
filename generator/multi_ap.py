@@ -42,9 +42,9 @@ class WaysideAP:
 
 
 DEFAULT_WAYSIDE_APS = (
-    WaysideAP("AP-1", -300.0),
-    WaysideAP("AP-2", 0.0),
-    WaysideAP("AP-3", 300.0),
+    WaysideAP("AP-001", -300.0),
+    WaysideAP("AP-002", 0.0),
+    WaysideAP("AP-003", 300.0),
 )
 
 

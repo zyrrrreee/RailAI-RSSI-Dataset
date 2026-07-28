@@ -2,19 +2,36 @@ table,field,dtype,unit,description,required
 scenarios,scenario_id,string,,Stable scenario identifier,yes
 scenarios,route_start_m,float,m,Start position of the simulated route,yes
 scenarios,route_end_m,float,m,End position of the simulated route,yes
+scenarios,ap_count,int,,Number of wayside APs,yes
+scenarios,obm_count,int,,Number of onboard measurement units,yes
 runs,run_id,string,,Unique full-trip identifier,yes
+runs,target_ap_id,string,,Single AP selected for diagnosis in the version-1 run,yes
+runs,label,string,,Canonical health or single-fault label,yes
+runs,fault_target,string,,Physical component affected by the fault or none,yes
+runs,fault_parameter_name,string,,Canonical parameter changed by the fault or none,yes
+runs,fault_parameter_value,float,see fault_parameter_unit,Nonnegative injected parameter magnitude; blank for healthy runs,conditional
+runs,fault_parameter_unit,string,,Physical unit such as dB or degree; blank for healthy runs,conditional
 runs,random_seed,int,,Root random seed for reproducibility,yes
 runs,normal_pair_run_id,string,,Paired healthy run using the frozen random world,no
+runs,split,string,,Official split name: train validation test_id or test_ood,yes
 samples,sample_id,string,,Unique target-AP sample identifier,yes
 samples,target_ap_id,string,,AP around which the diagnostic window is defined,yes
+samples,window_reference_obm_id,string,,OBM whose position defines the sample window,yes
+samples,window_start_m,float,m,Start position of the reference OBM window,yes
+samples,window_end_m,float,m,End position of the reference OBM window,yes
+samples,fault_parameter_name,string,,Fault parameter inherited from the run or none,yes
+samples,fault_parameter_value,float,see fault_parameter_unit,Injected parameter magnitude inherited from the run,conditional
+samples,fault_parameter_unit,string,,Physical unit inherited from the run,conditional
+samples,quality_flag,string,,Sample-level quality status,yes
+observations,target_ap_id,string,,Diagnostic AP inherited from the run and sample,yes
 observations,time_s,float,s,Elapsed run time,yes
 observations,position_m,float,m,Track position of the reporting OBM,yes
 observations,speed_mps,float,m/s,Train speed at the report time,yes
-observations,ap_id,string,,Candidate AP identifier,yes
+observations,ap_id,string,,Candidate AP identifier for this physical link,yes
 observations,obm_id,string,,Onboard measurement unit identifier,yes
 observations,rssi_dbm,float,dBm,Receiver-reported RSSI,yes
-observations,serving_ap,bool,,Whether this AP is serving the OBM,yes
+observations,serving_ap_id,string,,AP currently serving this OBM,yes
+observations,is_serving,bool,,Whether ap_id equals serving_ap_id,yes
 observations,is_valid,bool,,Whether the receiver report is valid,yes
 observations,receiver_status,string,,Receiver reporting status,yes
-observations,label,string,,Health or fault label inherited from the run,yes
-
+observations,label,string,,Canonical label inherited from the run,yes

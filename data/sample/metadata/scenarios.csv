@@ -1,3 +1,2 @@
 scenario_id,description,route_start_m,route_end_m,ap_count,obm_count,carrier_frequency_hz,config_path
-scenario_demo,Small engineering demo not calibrated to a real line,-400.0,150.0,1,1,2400000000.0,configs/scenarios/scenario_demo.json
-
+scenario_demo,Three-AP dual-OBM engineering demo not calibrated to a real line,-400.0,400.0,3,2,2400000000.0,configs/scenarios/scenario_demo.json

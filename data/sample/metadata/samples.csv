@@ -1,3 +1,2 @@
-scenario_id,run_id,sample_id,target_ap_id,window_start_m,window_end_m,label,fault_target,severity,observation_file
-scenario_demo,run_demo,sample_demo,AP-001,-20.0,20.0,healthy,none,none,observations/sample_demo.csv
-
+scenario_id,run_id,sample_id,target_ap_id,window_reference_obm_id,window_start_m,window_end_m,label,fault_target,fault_parameter_name,fault_parameter_value,fault_parameter_unit,quality_flag,observation_file
+scenario_demo,run_demo,sample_demo,AP-002,OBM-front,-20.0,20.0,healthy,none,none,,,pass,observations/sample_demo.csv

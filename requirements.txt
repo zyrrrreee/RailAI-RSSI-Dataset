@@ -1,3 +1,4 @@
+# Python >= 3.10; Python 3.11 is recommended.
 numpy>=1.26
 scipy>=1.11
 scikit-learn>=1.4
@@ -6,4 +7,3 @@ pandas>=2.1
 pyarrow>=15
 matplotlib>=3.8
 pytest>=8
-

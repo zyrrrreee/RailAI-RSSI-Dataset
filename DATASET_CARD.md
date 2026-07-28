@@ -18,7 +18,7 @@ RailAI-RSSI-Dataset 是面向铁路车地无线通信故障诊断的仿真 RSSI 
 | label | 含义 | 当前机理 |
 |---|---|---|
 | healthy | 健康 | 仅含传播与接收机随机性 |
-| global_power_attenuation | 全链路功率衰减 | 公共链路预算下降 |
+| global_power_attenuation | 全链路功率衰减 | 目标 AP 两副天线共享的公共射频链路预算下降 |
 | antenna_1_power_loss | 天线 1 功率下降 | 天线 1 支路功率/增益下降 |
 | antenna_2_power_loss | 天线 2 功率下降 | 天线 2 支路功率/增益下降 |
 | antenna_1_direction_offset | 天线 1 方向偏移 | 天线 1 方向图旋转 |
@@ -31,10 +31,14 @@ RailAI-RSSI-Dataset 是面向铁路车地无线通信故障诊断的仿真 RSSI 
 - 时间 `time_s`；
 - 线路位置 `position_m`；
 - 速度 `speed_mps`；
-- `ap_id` 与 `obm_id`；
+- `target_ap_id`、候选链路 `ap_id` 与 `obm_id`；
 - 接收机上报 `rssi_dbm`；
-- 当前服务 AP 状态；
+- 当前 `serving_ap_id` 以及该候选链路是否服务 `is_serving`；
 - RSSI 是否有效及接收机状态。
+
+第一版每个 Run 只设置一个目标 AP、一种健康/故障状态，并提取一个主要
+Sample。一个 Sample 内保留多个候选 AP 与车头、车尾两个 OBM，所以同一
+时间可以合法出现多行 Observation。
 
 ## Hierarchy and traceability
 
@@ -43,7 +47,7 @@ RailAI-RSSI-Dataset 是面向铁路车地无线通信故障诊断的仿真 RSSI 
 - `scenario_id`；
 - `run_id`；
 - `sample_id`；
-- 故障标签、目标设备和严重度；
+- 故障标签、目标设备、故障参数名、数值和物理单位；
 - 随机种子；
 - 生成器版本；
 - 配置哈希；
@@ -65,8 +69,8 @@ RailAI-RSSI-Dataset 是面向铁路车地无线通信故障诊断的仿真 RSSI 
 3. 当前五类故障是基础故障集合，不覆盖所有车地通信失效模式；
 4. 当前生成器基线仍需完成统一的 `Scenario → Run → Sample` 批量导出；
 5. 分类准确率只能评价仿真域内可分性，不能单独证明数据真实。
+6. 当前定长转换器只支持显式选择一条 AP—OBM 链路；完整多链路张量布局仍属后续工作。
 
 ## Responsible use
 
 本数据集适合科研、教学和算法对比，不应直接用于安全关键铁路系统的上线决策。任何工程部署都必须使用目标线路数据、设备规范和独立安全验证。
-

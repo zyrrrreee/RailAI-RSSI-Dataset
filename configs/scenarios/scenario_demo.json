@@ -1,13 +1,28 @@
 {
   "scenario_id": "scenario_demo",
-  "description": "Small repository contract example; not a calibrated real railway.",
+  "description": "Three-AP, dual-OBM repository contract example; not a calibrated real railway.",
   "route_start_m": -400.0,
-  "route_end_m": 150.0,
+  "route_end_m": 400.0,
   "carrier_frequency_hz": 2400000000.0,
+  "train_length_m": 80.0,
   "ap_layout": [
     {
       "ap_id": "AP-001",
+      "position_m": -200.0,
+      "lateral_offset_m": 5.0,
+      "height_m": 5.0,
+      "antenna_count": 2
+    },
+    {
+      "ap_id": "AP-002",
       "position_m": 0.0,
+      "lateral_offset_m": 5.0,
+      "height_m": 5.0,
+      "antenna_count": 2
+    },
+    {
+      "ap_id": "AP-003",
+      "position_m": 200.0,
       "lateral_offset_m": 5.0,
       "height_m": 5.0,
       "antenna_count": 2
@@ -16,7 +31,13 @@
   "obm_layout": [
     {
       "obm_id": "OBM-front",
-      "height_m": 4.1
+      "height_m": 4.1,
+      "longitudinal_offset_m": 0.0
+    },
+    {
+      "obm_id": "OBM-rear",
+      "height_m": 4.1,
+      "longitudinal_offset_m": -80.0
     }
   ],
   "provenance": {
@@ -24,4 +45,3 @@
     "warning": "Values are not calibrated measurements from a target line."
   }
 }
-

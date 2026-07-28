@@ -48,6 +48,8 @@ class Stage1RssiModelTests(unittest.TestCase):
         )
         self.assertEqual(metadata["ap_count"], 1)
         self.assertEqual(metadata["obm_count"], 1)
+        self.assertEqual(metadata["ap_id"], "AP-001")
+        self.assertEqual(metadata["obm_id"], "OBM-front")
         np.testing.assert_allclose(
             metadata["antenna_1_main_lobe_unit_vector"],
             -np.asarray(metadata["antenna_2_main_lobe_unit_vector"]),

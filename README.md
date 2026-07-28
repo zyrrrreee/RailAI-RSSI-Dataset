@@ -2,7 +2,7 @@
 
 面向车地通信故障诊断的、可复现的铁路 RSSI 仿真数据集与基准代码。
 
-> 当前仓库草稿版本：`v0.1-dev`。现阶段公开的是数据结构、生成器基线、验证方法和少量示例数据，不把仿真数据声称为某条真实线路的实测数据。
+> 当前仓库草稿版本：`v0.2-dev`。现阶段公开的是数据结构、生成器基线、验证方法和少量示例数据，不把仿真数据声称为某条真实线路的实测数据。
 
 ## 项目目标
 
@@ -29,9 +29,13 @@ Scenario（线路与通信环境）
 ```
 
 - `scenario_id`：描述线路长度、AP 布局、设备与传播环境等相对稳定条件；
-- `run_id`：描述一次完整运行中的速度轨迹、随机种子、健康/故障状态；
-- `sample_id`：描述围绕目标 AP 的诊断窗口；
+- `run_id`：描述一次完整运行中的速度轨迹、随机种子、健康/故障状态和本次目标 AP；
+- `sample_id`：描述围绕目标 AP 的一个主要诊断窗口；
 - `observations`：保存时间、位置、速度、AP、OBM、RSSI、服务 AP 状态等逐点数据。
+
+第一版公开契约采用“一条 Run 对应一个目标 AP、一种状态和一个主要
+Sample”。Sample 仍保留目标 AP、相邻候选 AP、车头/车尾两个 OBM
+的观测，不等于只保留一条 RSSI。多 Sample Run 和多目标复合故障属于后续扩展。
 
 详细说明见 [docs/DATASET_STRUCTURE.md](docs/DATASET_STRUCTURE.md)。
 
@@ -61,6 +65,8 @@ RailAI-RSSI-Dataset/
 ## 快速开始
 
 ### 1. 创建环境
+
+要求 Python 3.10 或更高版本，推荐使用 Python 3.11。
 
 ```bash
 python -m venv .venv
@@ -92,18 +98,24 @@ python scripts\generate_dataset.py --output artifacts\rssi_research_v1
 ```powershell
 python scripts\convert_to_model_input.py `
   --observations data\sample\observations\sample_demo.csv `
+  --ap-id AP-002 `
+  --obm-id OBM-front `
   --output artifacts\sample_model_ready.npz `
   --length 256
 ```
 
-输出包含 `X`、`mask`、`sample_ids` 和 `labels`。原始长表始终是权威数据，定长矩阵只是派生表示。
+当前转换器一次只转换一条明确的 AP—OBM 链路。若输入包含多条链路但
+没有指定 `--ap-id` 和 `--obm-id`，程序会拒绝转换，避免把不同物理链路
+悄悄混成一条曲线。输出包含 `X`、`mask`、样本追溯字段和标签。原始长表
+始终是权威数据，定长矩阵只是派生表示。
 
 ## 数据划分原则
 
-- 官方提供固定的 `train / validation / test / test_ood` 清单；
+- 官方提供固定的 `train / validation / test_id / test_ood` 清单；
 - 同一 `run_id` 不能跨集合；
 - 强相关或配对的健康/故障运行不能被拆到不同集合；
-- OOD 测试集应保留未在训练中出现的场景参数组合；
+- `test_id` 按 Run 隔离，评价已知 Scenario 下的新运行；
+- `test_ood` 按 Scenario 隔离，评价未见线路、AP 布局与传播环境；
 - 不使用逐行随机划分，否则相邻采样点会造成严重数据泄漏。
 
 ## 可复现与可信度边界
@@ -114,7 +126,7 @@ python scripts\convert_to_model_input.py `
 
 ## 许可证与引用
 
-当前 `v0.1-dev` 尚未完成团队作者信息和双许可证确认，因此 `LICENSE` 暂时保留“发布前待确认”状态。建议正式公开时：
+当前 `v0.2-dev` 尚未完成团队作者信息和双许可证确认，因此 `LICENSE` 暂时保留“发布前待确认”状态。建议正式公开时：
 
 - 代码：MIT License；
 - 数据：Creative Commons Attribution 4.0 International（CC BY 4.0）。

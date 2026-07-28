@@ -1,3 +1,2 @@
-scenario_id,run_id,label,fault_target,severity,random_seed,generator_version,config_hash,normal_pair_run_id,split
-scenario_demo,run_demo,healthy,none,none,123,0.1.0-dev,demo-config-hash,,train
-
+scenario_id,run_id,target_ap_id,label,fault_target,fault_parameter_name,fault_parameter_value,fault_parameter_unit,random_seed,generator_version,config_hash,normal_pair_run_id,split
+scenario_demo,run_demo,AP-002,healthy,none,none,,,123,0.2.0-dev,demo-config-hash-v2,,train

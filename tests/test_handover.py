@@ -216,8 +216,8 @@ class StatefulHandoverTests(unittest.TestCase):
             self.assertEqual(
                 result[role]["summary"]["handover_completion_count"], 2
             )
-            self.assertEqual(result[role]["serving_ap_id"][0], "AP-1")
-            self.assertEqual(result[role]["serving_ap_id"][-1], "AP-3")
+            self.assertEqual(result[role]["serving_ap_id"][0], "AP-001")
+            self.assertEqual(result[role]["serving_ap_id"][-1], "AP-003")
         front_completion_times = [
             event["completion_time_s"]
             for event in result["front_obm"]["events"]

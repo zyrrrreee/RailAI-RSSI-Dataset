@@ -1,0 +1,7 @@
+label,display_name_zh,is_fault,scope,description
+healthy,健康,0,none,Propagation and receiver randomness without an injected fault
+global_power_attenuation,全链路功率衰减,1,target_ap_common_rf_chain,Common link-budget loss shared by both antennas of the target AP
+antenna_1_power_loss,天线1功率下降,1,target_ap_antenna_1,Power or branch-gain loss of antenna 1 on the target AP
+antenna_2_power_loss,天线2功率下降,1,target_ap_antenna_2,Power or branch-gain loss of antenna 2 on the target AP
+antenna_1_direction_offset,天线1方向偏移,1,target_ap_antenna_1,Boresight rotation of antenna 1 on the target AP
+antenna_2_direction_offset,天线2方向偏移,1,target_ap_antenna_2,Boresight rotation of antenna 2 on the target AP
