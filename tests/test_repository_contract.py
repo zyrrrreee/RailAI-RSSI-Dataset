@@ -1,4 +1,5 @@
 from pathlib import Path
+import csv
 import subprocess
 import sys
 import tempfile
@@ -30,10 +31,32 @@ class RepositoryContractTests(unittest.TestCase):
             "scripts",
             "baselines",
             "docs",
+            "docs/schema/README.md",
+            "docs/schema/RailAI_RSSI_Field_Dictionary_v0.1-draft.xlsx",
+            "docs/schema/field_dictionary_v0.1-draft.csv",
+            "docs/schema/table_structure_v0.1-draft.csv",
+            "docs/schema/enums_and_constraints_v0.1-draft.csv",
+            "docs/schema/serialization_rules_v0.1-draft.csv",
             "checksums",
         ]
         for relative in required:
             self.assertTrue((ROOT / relative).exists(), relative)
+
+    def test_draft_field_contract_places_key_ids_at_correct_granularity(self):
+        dictionary_path = (
+            ROOT / "docs" / "schema" / "field_dictionary_v0.1-draft.csv"
+        )
+        with dictionary_path.open("r", encoding="utf-8-sig", newline="") as handle:
+            rows = list(csv.DictReader(handle))
+
+        field_locations = {
+            (row["字段名"], row["数据表/层级"])
+            for row in rows
+        }
+        self.assertIn(("world_id", "runs"), field_locations)
+        self.assertIn(("faulty_ap_id", "runs"), field_locations)
+        self.assertIn(("target_ap_id", "samples"), field_locations)
+        self.assertIn(("serving_ap_id", "observations"), field_locations)
 
     def test_sample_dataset_contract(self):
         result = subprocess.run(

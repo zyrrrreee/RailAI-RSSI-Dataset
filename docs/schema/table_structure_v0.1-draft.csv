@@ -1,0 +1,11 @@
+﻿数据表,结构位置,记录粒度,推荐主键,父级/来源,主要作用,推荐文件
+scenarios,Scenario,1行/场景,scenario_id,—,线路、传播环境和接收机的稳定参数,metadata/scenarios.parquet
+scenario_aps,Scenario子表,1行/AP,scenario_id + ap_id,scenarios,AP位置、功率和双天线配置,metadata/scenario_aps.parquet
+scenario_obms,Scenario子表,1行/OBM,scenario_id + obm_id,scenarios,车头/车尾OBM配置,metadata/scenario_obms.parquet
+runs,Run,1行/完整运行,scenario_id + run_id,scenarios,world、速度轨迹、故障真值和版本,metadata/runs.parquet
+samples,Sample,1行/目标AP样本,scenario_id + run_id + sample_id,runs,目标AP、窗口范围和样本标签,metadata/samples.parquet
+observations,Sample内部数据,1行/时刻×AP×OBM,sample_id + sample_index + ap_id + obm_id,samples,RSSI、位置、速度和服务AP状态,observations/*.parquet
+fault_events,可选真值表,1行/故障事件,fault_event_id,runs,中途发生或变化的故障事件,metadata/fault_events.parquet
+splits,辅助索引,1行/Sample,scenario_id + run_id + sample_id,samples,固定训练、验证、测试和OOD划分,splits/*.csv
+model_inputs,派生数据,1行/Sample输入,sample_id,samples,定长张量、掩码和通道顺序,model_inputs/manifest.parquet
+manifest,版本审计,1行/文件或版本项,dataset_version + file_path,全部数据表,版本、哈希、指纹和证据等级,manifest.json

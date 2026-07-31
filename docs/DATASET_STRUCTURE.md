@@ -34,15 +34,18 @@
 
 ```text
 一条 Run
-├── 一个 target_ap_id
+├── 一个 world_id
+├── 一个 faulty_ap_id（健康 Run 为空）
 ├── 一种状态（健康或五类单故障之一）
 └── 一个主要 Sample
+    └── 一个 target_ap_id
 ```
 
-故障 Run 中只有 `target_ap_id` 对应设备被设置为故障，其他 AP 保持健康。
+故障 Run 中只有 `faulty_ap_id` 对应设备被设置为故障，其他 AP 保持健康。
 “全链路功率衰减”指目标 AP 两副天线共用射频链路的衰减，不表示整条线路
-全部 AP 同时衰减。健康 Run 也指定目标 AP，以便与故障 Run 生成结构一致
-的对照样本。
+全部 AP 同时衰减。第一版故障 Run 的主要 Sample 要求
+`target_ap_id == faulty_ap_id`；健康 Run 的 `faulty_ap_id` 为空，但仍生成与配对
+故障 Run 相同目标 AP 和窗口的健康 Sample。
 
 多目标、多故障和一条 Run 提取多个 Sample 都是合理扩展，但不属于第一版
 正式分类契约。
@@ -54,7 +57,7 @@
 - `sample_id` 和目标 AP；
 - 上下文窗口范围；
 - 健康/故障标签；
-- 故障目标以及带物理单位的故障参数；
+- 指向 Run 中故障真值的样本标签；
 - 对应观测文件；
 - 可选的质量标志。
 
@@ -76,9 +79,10 @@
 
 原始长表是权威表示；补零+掩码或重采样矩阵属于派生的模型输入，不应覆盖原始数据。
 
-### 三类 AP 字段
+### 四类 AP 字段
 
-- `target_ap_id`：这条 Run/Sample 要诊断的目标 AP，整条样本内保持不变；
+- `faulty_ap_id`：Run 级仿真真值中实际故障的 AP，健康 Run 为空；
+- `target_ap_id`：Sample 级当前要求模型诊断的 AP，整条样本内保持不变；
 - `ap_id`：当前 Observation 所属的候选 AP；
 - `serving_ap_id`：当前时刻、当前 OBM 实际接入的 AP；
 - `is_serving`：`ap_id == serving_ap_id` 的冗余布尔标志，便于筛选与校验。
@@ -90,7 +94,7 @@
 
 - 不逐行随机切分；
 - 第一版每条 Run 只有一个 Sample；扩展为多 Sample 后，同一 Run 的所有 Sample 仍必须放在同一集合；
-- 配对健康/故障 Run 放在同一集合；
+- 同一 `world_id` 下的健康/故障配对 Run 必须整体放在同一集合；
 - `test_id` 按 Run 分组，用于测试已知 Scenario 下的新运行；
 - `test_ood` 按 Scenario 分组，用于测试未见线路、AP 布局和传播环境；
 - 所有官方划分随版本冻结并发布。

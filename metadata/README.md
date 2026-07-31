@@ -10,3 +10,9 @@
 - `schema/`：机器可读的数据模式。
 
 小型 CSV 示例位于 `data/sample/metadata/`。
+
+当前 `metadata/field_dictionary.csv` 与 `data/sample/` 共同描述仓库可执行的
+`v0.2-dev` 示例契约。下一版完整字段契约草案位于
+[`docs/schema/`](../docs/schema/README.md)，其中新增了 `world_id`、字段变化维度、
+第一版实现阶段与 CSV/Parquet 序列化规则。草案确认前不要单独替换本目录文件，
+否则会造成字段字典、生成器、验证器和示例数据互相不一致。

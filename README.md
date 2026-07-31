@@ -29,8 +29,8 @@ Scenario（线路与通信环境）
 ```
 
 - `scenario_id`：描述线路长度、AP 布局、设备与传播环境等相对稳定条件；
-- `run_id`：描述一次完整运行中的速度轨迹、随机种子、健康/故障状态和本次目标 AP；
-- `sample_id`：描述围绕目标 AP 的一个主要诊断窗口；
+- `run_id`：描述一次完整运行中的速度轨迹、`world_id`、随机种子以及健康/故障真值；
+- `sample_id`：描述围绕 `target_ap_id` 的一个主要诊断窗口；
 - `observations`：保存时间、位置、速度、AP、OBM、RSSI、服务 AP 状态等逐点数据。
 
 第一版公开契约采用“一条 Run 对应一个目标 AP、一种状态和一个主要
@@ -38,6 +38,13 @@ Sample”。Sample 仍保留目标 AP、相邻候选 AP、车头/车尾两个 OB
 的观测，不等于只保留一条 RSSI。多 Sample Run 和多目标复合故障属于后续扩展。
 
 详细说明见 [docs/DATASET_STRUCTURE.md](docs/DATASET_STRUCTURE.md)。
+
+## 字段契约草案
+
+下一版字段契约已整理为 Excel 与机器可读 CSV，见
+[docs/schema/README.md](docs/schema/README.md)。该目录目前是供团队和老师审阅的
+`v0.1-draft`，尚未替换 `data/sample/` 正在使用的 `v0.2-dev` 示例格式。
+确认草案后，生成器、验证器、示例数据和数据卡必须在同一次迁移中更新，不能只换字段表。
 
 ## 仓库结构
 

@@ -1,0 +1,9 @@
+﻿数据类型,CSV表示,Parquet表示,空值规则,示例,备注
+string / ID,UTF-8 文本,string,空字符串仅用于允许为空的字段,AP-002,ID区分大小写，发布后保持稳定
+float64,小数点使用 .，单元格不带单位,double,空单元格,-51.5,单位由字段字典单独规定
+int32 / int64,十进制整数,int32 / int64,空单元格,2026073101,随机种子不得转换为浮点数
+bool,true / false,boolean,空单元格,true,不得混用 0/1、是/否
+datetime,ISO 8601 UTC,"timestamp[us, UTC]",空单元格,ISO8601 2026-07-31T08:00:00Z,不使用 Excel 日期序列号公开
+list<string>,JSON 数组字符串,list<string>,[] 或空单元格，按字段约束,"[""AP-001"",""AP-002""]",数组顺序具有语义时不得排序
+json,紧凑 JSON 字符串,JSON字符串或结构体,空单元格,"{""drop_db"":6.0}",字段名、数值和单位必须版本化
+float64|null,空单元格表示 null,nullable double,不得使用 -999 代替,,缺失原因另存 missing_reason

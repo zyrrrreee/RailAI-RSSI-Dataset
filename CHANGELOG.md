@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.0-dev — 2026-07-31
+
+- 增加下一版字段契约草案 Excel 和四份机器可读 CSV；
+- 固定 `world_id` 属于 Run、`faulty_ap_id` 属于 Run、`target_ap_id` 属于 Sample、`serving_ap_id` 属于 Observation；
+- 将模糊的“随时间变化”改为“记录变化维度”，明确时刻、AP、OBM 三个变化轴；
+- 为字段增加第一版核心、条件、可选、后续扩展、派生输出和发布审计标记；
+- 增加 CSV/Parquet 序列化与空值规则；
+- 当前生成器与示例数据继续使用 `v0.2-dev` 契约，待草案确认后统一迁移。
+
 ## 0.2.0-dev — 2026-07-28
 
 - 固定第一版“一条 Run、一个目标 AP、一种状态、一个主要 Sample”契约；

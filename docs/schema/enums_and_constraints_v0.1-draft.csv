@@ -1,0 +1,41 @@
+﻿字段/规则,代码值,中文含义,定义或约束,适用范围
+pair_mode,strict_frozen,严格冻结随机世界,传播、衰落和接收机噪声共享，只改变故障参数,机理验证
+pair_mode,operational_replicate,实际重复观测,传播分组共享，接收机噪声允许独立,稳健性验证
+fault_type,healthy,健康,faulty_ap_id为空，故障参数为空,六分类之一
+fault_type,global_power_attenuation,全链路功率衰减,目标AP公共射频链路预算下降,AP侧故障
+fault_type,antenna_1_power_loss,天线1功率下降,目标AP天线1支路功率/增益下降,AP侧故障
+fault_type,antenna_2_power_loss,天线2功率下降,目标AP天线2支路功率/增益下降,AP侧故障
+fault_type,antenna_1_direction_offset,天线1方向偏移,目标AP天线1方向图旋转,AP侧故障
+fault_type,antenna_2_direction_offset,天线2方向偏移,目标AP天线2方向图旋转,AP侧故障
+fault_severity,none,无故障,仅用于healthy,健康
+fault_severity,mild,轻微,物理参数位于轻微范围,故障
+fault_severity,moderate,中等,物理参数位于中等范围,故障
+fault_severity,severe,严重,物理参数位于严重范围,故障
+split_name,train,训练集,只能包含完整world分组,IID训练
+split_name,validation,验证集,不得与训练集共享world,调参与阈值
+split_name,test_id,同分布测试集,不得与其他集合共享 world；Scenario 可与训练集相同,ID评估
+split_name,test_ood,域外测试集,进一步按scenario或参数域留出,OOD评估
+receiver_status,ok,正常报告,RSSI有效,Observation
+receiver_status,below_sensitivity,低于灵敏度,按接收机策略置空或封顶,Observation
+receiver_status,saturated,达到饱和,按接收机上限处理,Observation
+receiver_status,missing,缺失,is_valid=false并记录原因,Observation
+handover_state,unassociated,未关联,无服务AP,Observation
+handover_state,stable,稳定服务,未处于切换过程,Observation
+handover_state,pending,候选等待,候选优势尚在满足TTT,Observation
+handover_state,executing,切换执行,已触发但尚未完成,Observation
+handover_state,outage,服务中断,当前无可用服务AP,Observation
+parameter_source_type,literature_prior,文献先验,来源为公开论文或标准范围,Scenario
+parameter_source_type,equipment_prior,设备先验,来源为设备规格或工程资料,Scenario
+parameter_source_type,engineering_assumption,工程假设,尚未经过实测校准,Scenario
+parameter_source_type,real_healthy_calibrated,真实健康数据校准,使用真实健康RSSI估计,Scenario
+evidence_level,simulation_internal,仿真内部,只能说明仿真域内结果,Manifest
+evidence_level,real_healthy_calibrated,实测健康校准,已使用真实健康数据校准,Manifest
+evidence_level,real_fault_external,真实故障外部验证,已在真实故障数据上独立验证,Manifest
+全局规则,world_split_integrity,随机世界划分完整性,同一 world_id 不能跨 train/validation/test_id/test_ood,阻断性检查
+全局规则,v1_single_fault,第一版单AP单故障,故障Run仅允许一个faulty_ap_id,第一版范围
+全局规则,target_fault_match,目标AP与故障AP匹配,第一版故障Run必须target_ap_id==faulty_ap_id,第一版范围
+全局规则,truth_not_input,真值不得进入输入,faulty_ap_id、fault参数、world_id和种子不得作为模型特征,防泄漏
+全局规则,serving_state_key,服务AP状态粒度,serving_ap_id属于time_s×obm_id；同一OBM最多一个服务AP,Observation
+全局规则,link_time_order,链路时间顺序,允许同一时刻多行，但每条AP-OBM链路内时间单调递增,Observation
+全局规则,invalid_interpolation,无效观测处理,无效RSSI不得污染后续标记为有效的插值点,模型转换
+全局规则,receiver_config_source,接收机配置唯一来源,第一版以 scenarios 中灵敏度、饱和与量化数值为准；receiver_profile_id 仅追溯来源,Scenario/OBM
